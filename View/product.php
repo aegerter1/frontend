@@ -12,23 +12,30 @@ include('config/app.php')
 
 <body>
     <div class="container">
+
         <div class="row">
-            <div class="col-6">
-                <form id="loginForm">
-                    <h2>Fresh Shop Login
-                    </h2>
-                    <div class="form-group py-2">
-                        <label>Username</label>
-                        <input type="text" name="username" id="username" class="form-control">
-                    </div>
-                    <div class="form-group py-2">
-                        <label>Password</label>
-                        <input type="password" name="password" name="password" class="form-control">
-                    </div>
-                    <div class="form-group py-2">
-                        <input type="submit" value="Login" class="btn btn-primary" onclick="userAction()">
-                    </div>
-                </form>
+            <div class="col-4">
+                <?php include('menu.php'); ?>
+            </div>
+            <div class="col-8">
+
+                <h2>Product list
+                </h2>
+                <table class="table table-borderd">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>SKU</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productData">
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -36,35 +43,42 @@ include('config/app.php')
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="<?php echo $site_url; ?>assets/js/bootstrap.min.js"></script>
     <script>
-        const userAction = async () => {
+        /*const userAction = async () => {
             const response = await fetch('https://campus.csbe.ch/sollberger-manuel/uek307/Categories', {
                 mode: 'no-cors',
                 method: 'get',
 
                 headers: {
-
-                    'Cookie': 'name=value; name2=value2',
-
+                    'Content-Type': 'application/json',
+                    "access-control-allow-origin": "*",
                 }
             });
             const myJson = await response.json(); //extract JSON from the http response
             console.log(myJson);
             // do something with myJson
-        }
+        }*/
+        $.ajax({
+            mode: 'no-cors',
+            method: "get",
+            url: "https://campus.csbe.ch/sollberger-manuel/uek307/Products",
+            headers: {
+                'Content-Type': 'application/json',
+                "access-control-allow-origin": "*",
+            },
+            success: function(data) {
+                $.each(data, function(index, value) {
+                    $("#productData").append("<tr><td>" + value.product_id + "</td><td>" + value.name + "</td><td>" + value.sku + "</td><td>" + value.description + "</td><td>" + value.price + "</td><td><a href='' class='btn btn-info btn-sm'>Edit</a><a href='' class='btn btn-danger btn-sm'>Delete</a><td></tr>")
+                })
+                console.log(data);
+            }
+        });
         $(document).on('submit', '#loginForm', function(e) {
             e.preventDefault();
             console.log("Login");
 
 
             //setcookies();
-            /*$.ajax({
-                method: "POST",
-                url: "Controller/LoginController.php",
-                data: $(this).serialize(),
-                success: function(data) {
-                    //console.log(data);
-                }
-            })*/
+
         });
 
         /*function setcookies() {

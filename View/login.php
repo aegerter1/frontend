@@ -12,18 +12,19 @@ include('config/app.php')
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-6">
+        <div class="row justify-content-md-center">
+            <div class="col-4">
                 <form id="loginForm">
-                    <h2>Fresh Shop Login
+                    <h2 class="text-center">Fresh Shop Login
                     </h2>
+                    <div id="msg" class="text-danger"></div>
                     <div class="form-group py-2">
                         <label>Username</label>
-                        <input type="text" name="username" id="username" class="form-control">
+                        <input type="text" name="username" id="username" placeholder="Enter Username" class="form-control">
                     </div>
                     <div class="form-group py-2">
                         <label>Password</label>
-                        <input type="password" name="password" name="password" class="form-control">
+                        <input type="password" name="password" id="password" placeholder="Enter Password" class="form-control">
                     </div>
                     <div class="form-group py-2">
                         <input type="submit" value="Login" class="btn btn-primary" onclick="userAction()">
@@ -37,12 +38,19 @@ include('config/app.php')
     <script src="<?php echo $site_url; ?>assets/js/bootstrap.min.js"></script>
     <script>
         const userAction = async () => {
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var msg = "";
+            if (username == "" || password == "") {
+                $('#msg').text('Please enter username and password!')
+                return false;
+            }
             const response = await fetch('https://campus.csbe.ch/sollberger-manuel/uek307/Authenticate', {
                 mode: 'no-cors',
                 method: 'POST',
                 body: JSON.stringify({
-                    username: 'root',
-                    password: 'sUP3R53CR3T#',
+                    username: username, //'root',
+                    password: password //'sUP3R53CR3T#',
                 }), // string oder object
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,9 +63,12 @@ include('config/app.php')
 
             });
             //console.log(response.data);
-            const myJson = await response.text(); //extract JSON from the http response
-            console.log(await response.headers.get('Set-Cookie'))
+            const myJson = await response.statusText; //extract JSON from the http response
+
             console.log(myJson);
+            if (myJson != "Success.") {
+                window.location.href = "index.php?page=product";
+            }
             // myJson
         }
         $(document).on('submit', '#loginForm', function(e) {
