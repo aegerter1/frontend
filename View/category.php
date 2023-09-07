@@ -44,9 +44,7 @@ include('config/app.php')
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="addCategory">
@@ -55,7 +53,32 @@ include('config/app.php')
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- category edit Modal -->
+    <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCategory">
+                        <input type="hidden" class="form-control" name="category_id" id="category_id">
+                        <input type="hidden" class="form-control" name="active" id="active">
+                        <input type="text" class="form-control" name="cate_name" id="cate_name">
+                        <input type="submit" class="btn btn-sm btn-info" onclick="editAction()" value="Update">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                 </div>
             </div>
@@ -84,6 +107,7 @@ include('config/app.php')
             const myJson = await response.statusText; //extract JSON from the http response
             console.log(myJson);
             alert('success');
+            location.reload();
             // do something with myJson
         }
         $.ajax({
@@ -96,7 +120,7 @@ include('config/app.php')
             },
             success: function(data) {
                 $.each(data, function(index, value) {
-                    $("#categoryData").append("<tr><td>" + value.category_id + "</td><td>" + value.name + "</td><td><a href='' class='btn btn-info btn-sm categoryEdit' data-id=" + value.category_id + ">Edit</a><a href='' class='btn btn-danger btn-sm'>Delete</a><td></tr>")
+                    $("#categoryData").append("<tr><td>" + value.category_id + "</td><td>" + value.name + "</td><td><a href='#' class='btn btn-info btn-sm categoryEdit' data-id=" + value.category_id + ">Edit</a><a href='#' class='btn btn-danger btn-sm deleteCategory' data-id=" + value.category_id + ">Delete</a><td></tr>")
                 })
                 console.log(data);
             }
@@ -129,12 +153,154 @@ include('config/app.php')
             //setcookies();
 
         });
+        $(document).on('submit', '#editCategory', function(e) {
+            e.preventDefault();
+            var cat_name = $('#cate_name').val();
+            var category_id = $('#category_id').val();
+            var active = $('#active').val();
+            var bodydata = JSON.stringify({
+                "active": "1",
+                "name": "cat_name"
 
+            })
+            console.log(bodydata);
+            /* $.ajax({
+                 mode: 'no-cors',
+                 method: "PUT",
+                 url: "https://campus.csbe.ch/sollberger-manuel/uek307/Category/" + category_id,
+
+                 dataType: 'json',
+
+                 body: bodydata,
+                 success: function(data) {
+                     alert('success');
+                     console.log(data);
+                 }
+             });*/
+
+            //setcookies();
+
+        });
+        const editAction = async () => {
+            var cat_name = $('#cate_name').val();
+            var category_id = $('#category_id').val();
+            var active = $('#active').val();
+            const response = await fetch('https://campus.csbe.ch/sollberger-manuel/uek307/Category/' + category_id, {
+                mode: 'no-cors',
+                method: 'PUT',
+                body: JSON.stringify({
+                    "active": 1,
+                    "name": cat_name
+
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    "access-control-allow-origin": "*",
+                    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                    'Access-Control-Allow-Methods': '*',
+                }
+            });
+            const myJson = await response.statusText; //extract JSON from the http response
+            console.log(myJson);
+            alert('success');
+            location.reload();
+            // do something with myJson
+        }
         /*function setcookies() {
             const currentDate = new Date();
             currentDate.setTime(currentDate.getTime() + (24 * 60 * 60 * 100));
             document.cookie = "token=test";
         }*/
+        //$(document).ready(function() {
+        $('body').on('click', '.categoryEdit', function() {
+            var category_id = $(this).attr('data-id');
+            $('#exampleModalEdit').modal('show');
+
+            $.ajax({
+                mode: 'no-cors',
+                method: "GET",
+                url: "https://campus.csbe.ch/sollberger-manuel/uek307/Category/" + category_id,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "access-control-allow-origin": "*",
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+
+                success: function(data) {
+                    /// alert('success');
+                    $('#cate_name').val(data.name);
+                    $('#category_id').val(data.category_id);
+                    $('#active').val(data.active);
+
+                    console.log(data);
+                }
+
+
+            })
+        });
+        $('body').on('click', '.deleteCategory', function() {
+            var category_id = $(this).attr('data-id');
+            if (confirm('are you sure want to delete?')) {
+                $.ajax({
+                    mode: 'no-cors',
+                    method: "delete",
+                    url: "https://campus.csbe.ch/sollberger-manuel/uek307/Category/" + category_id,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "access-control-allow-origin": "*",
+                    },
+                    dataType: 'json',
+                    contentType: 'application/json',
+
+                    success: function(data) {
+                        alert('success');
+                        console.log(data);
+                    }
+
+
+                })
+            } else {
+                return false;
+            }
+            location.reload();
+        });
+
+        //});
+    </script>
+    <script>
+        window.onload = function() {
+            checkCookie();
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            let user = getCookie("token");
+            if (user != "") {
+                console.log(user);
+            } else {
+                window.location.href = 'index.php';
+                // user = prompt("Please enter your name:","");
+                //  if (user != "" && user != null) {
+                // setCookie("username", user, 30);
+                //  }
+            }
+        }
     </script>
 </body>
 

@@ -19,24 +19,37 @@ include('config/app.php')
             </div>
             <div class="col-8">
 
-                <h2>Product list
+                <h2>Product Edit
                 </h2>
-                <a href="index.php?page=addproduct" class="btn btn-success btn-sm">Add Product</a>
-                <table class="table table-borderd">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>SKU</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productData">
-
-                    </tbody>
-                </table>
+                <form id="addCategory">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select class="form-control" id="categoryData" name="category">
+                            <option>Select Category</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" class="form-control" name="product_name" id="product_name">
+                    </div>
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <input type="file" class="form-control" name="product_image" id="product_image">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" name="description" id="description">
+                    </div>
+                    <div class="form-group">
+                        <label>price</label>
+                        <input type="text" class="form-control" name="price" id="price">
+                    </div>
+                    <div class="form-group">
+                        <label>available_stock</label>
+                        <input type="text" class="form-control" name="available_stock" id="available_stock">
+                    </div>
+                    <input type="submit" class="btn btn-sm btn-info" value="save" onclick="userAction()">
+                </form>
             </div>
         </div>
     </div>
@@ -81,14 +94,14 @@ include('config/app.php')
         $.ajax({
             mode: 'no-cors',
             method: "get",
-            url: "https://campus.csbe.ch/sollberger-manuel/uek307/Products",
+            url: "https://campus.csbe.ch/sollberger-manuel/uek307/Categories",
             headers: {
                 'Content-Type': 'application/json',
                 "access-control-allow-origin": "*",
             },
             success: function(data) {
                 $.each(data, function(index, value) {
-                    $("#productData").append("<tr><td>" + value.product_id + "</td><td>" + value.name + "</td><td>" + value.sku + "</td><td>" + value.description + "</td><td>" + value.price + "</td><td><a href='#' class='btn btn-info btn-sm' data-sku=" + value.sku + ">Edit</a><a href='#' class='btn btn-danger btn-sm deleteProduct' data-sku=" + value.sku + ">Delete</a><td></tr>")
+                    $("#categoryData").append("<option value=" + value.category_id + ">" + value.name + "</option")
                 })
                 console.log(data);
             }
@@ -101,72 +114,12 @@ include('config/app.php')
             //setcookies();
 
         });
-        $('body').on('click', '.deleteProduct', function() {
-            var sku = $(this).attr('data-sku');
-            if (confirm('are you sure want to delete?')) {
-                $.ajax({
-                    mode: 'no-cors',
-                    method: "delete",
-                    url: "https://campus.csbe.ch/sollberger-manuel/uek307/Product/" + sku,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "access-control-allow-origin": "*",
-                    },
-                    dataType: 'json',
-                    contentType: 'application/json',
-
-                    success: function(data) {
-                        alert('success');
-                        console.log(data);
-                    }
-
-
-                })
-            } else {
-                return false;
-            }
-            location.reload();
-        });
 
         /*function setcookies() {
             const currentDate = new Date();
             currentDate.setTime(currentDate.getTime() + (24 * 60 * 60 * 100));
             document.cookie = "token=test";
         }*/
-    </script>
-    <script>
-        window.onload = function() {
-            checkCookie();
-        }
-
-        function getCookie(cname) {
-            let name = cname + "=";
-            let decodedCookie = decodeURIComponent(document.cookie);
-            let ca = decodedCookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
-        function checkCookie() {
-            let user = getCookie("token");
-            if (user != "") {
-                console.log(user);
-            } else {
-                window.location.href = 'index.php';
-                // user = prompt("Please enter your name:","");
-                //  if (user != "" && user != null) {
-                // setCookie("username", user, 30);
-                //  }
-            }
-        }
     </script>
 </body>
 
