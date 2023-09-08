@@ -88,7 +88,7 @@ include('config/app.php')
             },
             success: function(data) {
                 $.each(data, function(index, value) {
-                    $("#productData").append("<tr><td>" + value.product_id + "</td><td>" + value.name + "</td><td>" + value.sku + "</td><td>" + value.description + "</td><td>" + value.price + "</td><td><a href='#' class='btn btn-info btn-sm' data-sku=" + value.sku + ">Edit</a><a href='#' class='btn btn-danger btn-sm deleteProduct' data-sku=" + value.sku + ">Delete</a><td></tr>")
+                    $("#productData").append("<tr><td>" + value.product_id + "</td><td>" + value.name + "</td><td>" + value.sku + "</td><td>" + value.description + "</td><td>" + value.price + "</td><td><a href='index.php?page=editproduct&sku=" + value.sku + "' class='btn btn-info btn-sm' data-sku=" + value.sku + ">Edit</a><a href='#' class='btn btn-danger btn-sm deleteProduct' data-sku=" + value.sku + ">Delete</a><td></tr>")
                 })
                 console.log(data);
             }

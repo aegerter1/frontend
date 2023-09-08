@@ -1,5 +1,6 @@
 <?php
-include('config/app.php')
+include('config/app.php');
+$sku = isset($_GET['sku']) ? $_GET['sku'] : '';
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,8 +22,9 @@ include('config/app.php')
 
                 <h2>Product Edit
                 </h2>
-                <form id="addCategory">
+                <form id="addprod">
                     <div class="form-group">
+                        <input type="hidden" name="sku" id="sku" value="<?php echo $sku; ?>">
                         <label>Category</label>
                         <select class="form-control" id="categoryData" name="category">
                             <option>Select Category</option>
@@ -48,49 +50,15 @@ include('config/app.php')
                         <label>available_stock</label>
                         <input type="text" class="form-control" name="available_stock" id="available_stock">
                     </div>
-                    <input type="submit" class="btn btn-sm btn-info" value="save" onclick="userAction()">
+                    <input type="submit" class="btn btn-sm btn-info" value="save">
                 </form>
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="addCategory">
-                        <input type="text" class="form-control" name="name" id="name">
-                        <input type="submit" class="btn btn-sm btn-info" value="save" onclick="userAction()">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="<?php echo $site_url; ?>assets/js/bootstrap.min.js"></script>
     <script>
-        /*const userAction = async () => {
-            const response = await fetch('https://campus.csbe.ch/sollberger-manuel/uek307/Categories', {
-                mode: 'no-cors',
-                method: 'get',
-
-                headers: {
-                    'Content-Type': 'application/json',
-                    "access-control-allow-origin": "*",
-                }
-            });
-            const myJson = await response.json(); //extract JSON from the http response
-            console.log(myJson);
-            // do something with myJson
-        }*/
         $.ajax({
             mode: 'no-cors',
             method: "get",
@@ -106,20 +74,69 @@ include('config/app.php')
                 console.log(data);
             }
         });
-        $(document).on('submit', '#loginForm', function(e) {
-            e.preventDefault();
-            console.log("Login");
+        $.ajax({
+            mode: 'no-cors',
+            method: "GET",
+            url: "https://campus.csbe.ch/sollberger-manuel/uek307/Product/" + <?php echo $sku; ?>,
+            headers: {
+                'Content-Type': 'application/json',
+                "access-control-allow-origin": "*",
+            },
+            dataType: 'json',
+            contentType: 'application/json',
 
+            success: function(data) {
+                console.log(data)
+                $('#categoryData').val(data.id_category);
+                $('#product_name').val(data.name);
+                $('#product_image').val(data.product_image);
+                $('#description').val(data.description);
+                $('#price').val(data.price);
+                $('#available_stock').val(data.stock);
 
-            //setcookies();
-
+            }
         });
+        $(document).on('submit', '#addprod', function(e) {
+            e.preventDefault();
+            console.log("add product");
 
-        /*function setcookies() {
-            const currentDate = new Date();
-            currentDate.setTime(currentDate.getTime() + (24 * 60 * 60 * 100));
-            document.cookie = "token=test";
-        }*/
+            var active = 1;
+            var id_category = $('#categoryData').val();
+            var name = $('#product_name').val();
+            var product_image = $('#product_image').val();;
+            var description = $('#description').val();;
+            var price = $('#price').val();
+            var stock = $('#available_stock').val();
+            var sku = $('#sku').val();
+            var data = JSON.stringify({
+                "active": 1,
+                "id_category": id_category,
+                "name": name,
+                "price": price,
+                "stock": stock,
+                'description': description,
+                'product_image': product_image,
+
+            });
+            $.ajax({
+                mode: 'no-cors',
+                method: "PUT",
+                url: "https://campus.csbe.ch/sollberger-manuel/uek307/Product/" + sku,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "access-control-allow-origin": "*",
+                },
+                dataType: 'json',
+                contentType: 'application/json',
+                data: data,
+                success: function(data) {
+                    alert('success');
+                    console.log(data);
+                }
+            });
+            alert('success');
+            window.location.href = 'index.php?page=product';
+        });
     </script>
 </body>
 
