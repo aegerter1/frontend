@@ -1,6 +1,7 @@
 <?php
 $url = $_SERVER['REQUEST_URI'];
 $parameter = isset($_GET['page']) ? $_GET['page'] : '';
+
 if ($parameter == "product") {
     include('View/product.php');
     //$explode = explode('/', $url);
@@ -16,6 +17,5 @@ if ($parameter == "product") {
 } elseif ($parameter == "logout") {
     include('View/logout.php');
 } else {
-
     include('View/login.php');
 }

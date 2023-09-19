@@ -9,13 +9,10 @@ include('header.php');
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-
     </div>
     <!--Product list table -->
     <div class="row">
-
         <div class="col-12">
-
             <h2>Product list</h2>
             <!-- Add new product -->
             <a href="index.php?page=addproduct" class="btn btn-success btn-sm">Add Product</a>
@@ -31,15 +28,11 @@ include('header.php');
                     </tr>
                 </thead>
                 <tbody id="productData">
-
                 </tbody>
             </table>
         </div>
     </div>
-
     <!-- Content Row -->
-
-
 </div>
 <!-- /.container-fluid -->
 
@@ -90,8 +83,6 @@ include('header.php');
                     alert('success');
                     console.log(data);
                 }
-
-
             })
         } else {
             return false;
@@ -100,6 +91,7 @@ include('header.php');
         location.reload();
     });
 </script>
+
 <script>
     window.onload = function() {
         // browser cookies check

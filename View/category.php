@@ -7,7 +7,6 @@ include('header.php');
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Category</h1>
-
     </div>
     <!-- category list -->
     <div class="row">
@@ -77,7 +76,6 @@ include('header.php');
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
             </div>
         </div>
     </div>
@@ -94,7 +92,6 @@ include('header.php');
             body: JSON.stringify({
                 "active": 1,
                 "name": name
-
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -107,9 +104,9 @@ include('header.php');
         console.log(myJson);
         alert('success');
         location.reload();
-        // do something with myJson
+        // myJson
     }
-    // ajax call cateory list
+    // ajax call category list
     $.ajax({
         mode: 'no-cors',
         method: "get",
@@ -154,6 +151,7 @@ include('header.php');
         //setcookies();
 
     });
+
     // update category api call
     $(document).on('submit', '#editCategory', function(e) {
         e.preventDefault();
@@ -163,16 +161,13 @@ include('header.php');
         var bodydata = JSON.stringify({
             "active": "1",
             "name": cat_name
-
         })
         console.log(bodydata);
         $.ajax({
             mode: 'no-cors',
             method: "PUT",
             url: "https://campus.csbe.ch/sollberger-manuel/uek307/Category/" + category_id,
-
             dataType: 'json',
-
             data: bodydata,
             success: function(data) {
                 alert('success');
@@ -183,15 +178,12 @@ include('header.php');
         alert('success');
         location.reload();
         //setcookies();
-
     });
-
     //edit category api call
     //$(document).ready(function() {
     $('body').on('click', '.categoryEdit', function() {
         var category_id = $(this).attr('data-id'); // get category id
         $('#exampleModalEdit').modal('show');
-
         $.ajax({
             mode: 'no-cors',
             method: "GET",
@@ -202,19 +194,16 @@ include('header.php');
             },
             dataType: 'json',
             contentType: 'application/json',
-
             success: function(data) {
                 /// alert('success');
                 $('#cate_name').val(data.name);
                 $('#category_id').val(data.category_id);
                 $('#active').val(data.active);
-
                 console.log(data);
             }
-
-
         })
     });
+
     // delete category api ajax call
     $('body').on('click', '.deleteCategory', function() {
         var category_id = $(this).attr('data-id'); // category id
@@ -229,14 +218,11 @@ include('header.php');
                 },
                 dataType: 'json',
                 contentType: 'application/json',
-
                 success: function(data) {
                     alert('success');
                     console.log(data);
                     location.reload();
                 }
-
-
             })
         } else {
             return false;
@@ -244,9 +230,9 @@ include('header.php');
         // site realod
         location.reload();
     });
-
     //});
 </script>
+
 <script>
     // window onload check cookies
     window.onload = function() {

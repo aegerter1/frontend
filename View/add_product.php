@@ -8,15 +8,13 @@ include('header.php');
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
         <!-- page title-->
         <h1 class="h3 mb-0 text-gray-800">Product</h1>
-
     </div>
 
     <div class="row">
-
         <div class="col-8">
-
             <h2>Product Add
             </h2>
             <!-- product add form-->
@@ -52,9 +50,11 @@ include('header.php');
         </div>
     </div>
 </div>
+
 <!-- script area-->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="<?php echo $site_url; ?>assets/js/bootstrap.min.js"></script>
+
 <script>
     // get all categories
     $.ajax({
@@ -93,8 +93,8 @@ include('header.php');
             "stock": stock,
             'description': description,
             'product_image': product_image,
-
         });
+
         $.ajax({
             mode: 'no-cors',
             method: "PUT",
@@ -118,6 +118,7 @@ include('header.php');
 
     });
 </script>
+
 <script>
     // windows onload check cookies
     window.onload = function() {
@@ -139,6 +140,7 @@ include('header.php');
         }
         return "";
     }
+
     // check cookies function
     function checkCookie() {
         let user = getCookie("token");

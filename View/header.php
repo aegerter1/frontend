@@ -19,7 +19,6 @@
     <link href="<?php echo $site_url; ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?php echo $site_url; ?>assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $site_url; ?>assets/css/style.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -61,7 +60,6 @@
                     <span>Product</span></a>
             </li>
 
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -70,10 +68,8 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-
-
         </ul>
-        <!-- End of Sidebar -->
+        <!-- End Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -89,8 +85,6 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -101,7 +95,6 @@
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-
                             </div>
                         </li>
 
@@ -122,7 +115,6 @@
                                 <!-- Counter - Messages -->
                                 <span class="badge badge-danger badge-counter">0</span>
                             </a>
-
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -142,8 +134,6 @@
                                 </a>
                             </div>
                         </li>
-
                     </ul>
-
                 </nav>
                 <!-- End of Topbar -->

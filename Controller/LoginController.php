@@ -1,3 +1,4 @@
+
 <?php
 login($_POST);
 function login($data)

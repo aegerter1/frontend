@@ -10,15 +10,11 @@ include('header.php');
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Product</h1>
-
     </div>
 
     <div class="row">
-
         <div class="col-8">
-
-            <h2>Product Edit
-            </h2>
+            <h2>Product Edit</h2>
             <!-- product edit form-->
             <form id="addprod">
                 <div class="form-group">
@@ -56,6 +52,7 @@ include('header.php');
 <!-- script area-->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="<?php echo $site_url; ?>assets/js/bootstrap.min.js"></script>
+
 <script>
     // ajax call category list
     $.ajax({
@@ -74,6 +71,7 @@ include('header.php');
             console.log(data);
         }
     });
+
     // api call get product details
     $.ajax({
         mode: 'no-cors',
@@ -94,14 +92,13 @@ include('header.php');
             $('#description').val(data.description); // product description
             $('#price').val(data.price); // product price
             $('#available_stock').val(data.stock); // product stock
-
         }
     });
+
     // update product api call
     $(document).on('submit', '#addprod', function(e) {
         e.preventDefault();
         console.log("add product");
-
         var active = 1;
         var id_category = $('#categoryData').val(); // get category id
         var name = $('#product_name').val(); // get product name
@@ -109,7 +106,7 @@ include('header.php');
         var description = $('#description').val(); // get product description
         var price = $('#price').val(); // get price
         var stock = $('#available_stock').val(); // get stock
-        var sku = $('#sku').val(); // grt sku
+        var sku = $('#sku').val(); // get sku
         var data = JSON.stringify({
             "active": 1,
             "id_category": id_category,
@@ -118,8 +115,8 @@ include('header.php');
             "stock": stock,
             'description': description,
             'product_image': product_image,
-
         });
+
         $.ajax({
             mode: 'no-cors',
             method: "PUT",
@@ -141,6 +138,7 @@ include('header.php');
         window.location.href = 'index.php?page=product';
     });
 </script>
+
 <script>
     // windows onload check cookies
     window.onload = function() {

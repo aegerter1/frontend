@@ -3,6 +3,7 @@
   window.onload = function() {
     checkCookie();
   }
+
   // get cookies function
   function getCookie(cname) {
     let name = cname + "=";

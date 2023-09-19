@@ -5,17 +5,19 @@ include('config/app.php')
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
     <!-- login title -->
     <title>Login</title>
+
     <!-- css link -->
     <link href="<?php echo $site_url; ?>assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $site_url; ?>assets/css/style.css" rel="stylesheet">
+
     <!-- style area -->
     <style>
         .login-bg {
@@ -41,12 +43,12 @@ include('config/app.php')
         }
     </style>
 </head>
+
 <!--body start -->
 
 <body class="login-bg">
     <div class="container">
         <div class="row justify-content-md-center">
-
             <div class="col-4">
                 <!-- Login form start -->
                 <form id="loginForm">
@@ -115,9 +117,6 @@ include('config/app.php')
         $(document).on('submit', '#loginForm', function(e) {
             e.preventDefault();
             console.log("Login");
-
-
-
         });
     </script>
 
