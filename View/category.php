@@ -13,8 +13,7 @@ include('header.php');
 
         <div class="col-12">
 
-            <h2>Category list
-            </h2>
+            <h2>Category list</h2>
             <!-- add new category button-->
             <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New</a>
             <!-- table start-->
@@ -26,9 +25,7 @@ include('header.php');
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="categoryData">
-
-                </tbody>
+                <tbody id="categoryData"></tbody>
             </table>
             <!-- table end-->
         </div>
@@ -51,7 +48,6 @@ include('header.php');
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
             </div>
         </div>
     </div>
@@ -106,6 +102,7 @@ include('header.php');
         location.reload();
         // myJson
     }
+
     // ajax call category list
     $.ajax({
         mode: 'no-cors',
@@ -207,7 +204,7 @@ include('header.php');
     // delete category api ajax call
     $('body').on('click', '.deleteCategory', function() {
         var category_id = $(this).attr('data-id'); // category id
-        if (confirm('are you sure want to delete?')) {
+        if (confirm('Are you sure want to delete?')) {
             $.ajax({
                 mode: 'no-cors',
                 method: "delete",

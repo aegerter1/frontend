@@ -105,7 +105,6 @@
                                 <!-- Counter - Alerts -->
                                 <span class="badge badge-danger badge-counter">0</span>
                             </a>
-
                         </li>
 
                         <!-- Nav Item - Messages -->

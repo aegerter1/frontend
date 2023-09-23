@@ -52,8 +52,7 @@ include('config/app.php')
             <div class="col-4">
                 <!-- Login form start -->
                 <form id="loginForm">
-                    <h2 class="text-center">Welcome to Fresh Shop <br>Login
-                    </h2>
+                    <h2 class="text-center">Welcome to Fresh Shop Login</h2>
                     <div id="msg" class="text-white"></div>
                     <div class="form-group py-2">
                         <label>Username</label>

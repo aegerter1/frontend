@@ -1,5 +1,7 @@
 
 <?php
+
+// HTTTP POST request
 login($_POST);
 function login($data)
 {
@@ -10,6 +12,7 @@ function login($data)
     $url = "https://campus.csbe.ch/sollberger-manuel/uek307/Authenticate";
     $curlObj = curl_init();
 
+    // Create request object
     curl_setopt($curlObj, CURLOPT_URL, $url);
     curl_setopt($curlObj, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curlObj, CURLOPT_POST, 1);

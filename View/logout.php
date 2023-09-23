@@ -20,6 +20,7 @@
     }
     return "";
   }
+
   // delete cookies function
   function delete_cookie(name) {
     console.log(name);
